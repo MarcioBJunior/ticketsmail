@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { InfoIcon } from 'lucide-react'
-import { debugConfig } from '@/lib/config'
 
 function LoginForm() {
   const [email, setEmail] = useState('')
@@ -27,8 +26,7 @@ function LoginForm() {
     setLoading(true)
     setError(null)
 
-    // Debug configuration
-    debugConfig()
+    // Configuration validated on initialization
 
     try {
       const { error } = await supabase.auth.signInWithPassword({

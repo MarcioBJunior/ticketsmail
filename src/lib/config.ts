@@ -37,13 +37,3 @@ export function validateConfig() {
   return true
 }
 
-// Debug function
-export function debugConfig() {
-  console.log('Current config:', {
-    supabaseUrl: config.supabase.url,
-    supabaseUrlLength: config.supabase.url.length,
-    hasAnonKey: !!config.supabase.anonKey,
-    anonKeyLength: config.supabase.anonKey.length,
-    appUrl: config.app.url
-  })
-}

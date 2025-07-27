@@ -59,13 +59,7 @@ export function createUserGraphClient(accessToken: string): Client {
   // Both are valid for Graph API calls
   const tokenParts = accessToken.split('.')
   
-  console.log('Creating Graph client with token:', {
-    tokenLength: accessToken.length,
-    parts: tokenParts.length,
-    tokenPreview: accessToken.substring(0, 30) + '...',
-    isJWT: tokenParts.length === 3,
-    isOpaque: tokenParts.length === 1
-  })
+  // Token validation without logging sensitive data
   
   // Accept both JWT (3 parts) and opaque tokens (1 part)
   // Opaque tokens are valid access tokens from Microsoft

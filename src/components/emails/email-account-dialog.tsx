@@ -162,7 +162,7 @@ export function EmailAccountDialog({
           throw new Error('Microsoft Client ID não configurado. Configure NEXT_PUBLIC_MICROSOFT_CLIENT_ID nas variáveis de ambiente.')
         }
         
-        console.log('Using Microsoft Client ID:', clientId)
+        // Client ID validation without logging
         
         // Use the app URL from environment or current origin
         const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
@@ -186,7 +186,7 @@ export function EmailAccountDialog({
         
         const authUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?${params.toString()}`
         
-        console.log('Redirecting to:', authUrl)
+        // Redirect to Microsoft OAuth
 
         // Redirect to Microsoft login
         window.location.href = authUrl
