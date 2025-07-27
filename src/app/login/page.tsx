@@ -26,19 +26,26 @@ function LoginForm() {
     setLoading(true)
     setError(null)
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
 
-    if (error) {
-      setError(error.message)
+      if (error) {
+        console.error('Login error:', error)
+        setError(error.message)
+        setLoading(false)
+        return
+      }
+
+      router.push(redirect)
+      router.refresh()
+    } catch (err) {
+      console.error('Unexpected login error:', err)
+      setError('Erro ao fazer login. Verifique sua conexão.')
       setLoading(false)
-      return
     }
-
-    router.push(redirect)
-    router.refresh()
   }
 
   return (
