@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { InfoIcon } from 'lucide-react'
 
-export default function LoginPage() {
+function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -39,46 +39,6 @@ export default function LoginPage() {
 
     router.push(redirect)
     router.refresh()
-  }
-
-  const handleSignUp = async () => {
-    if (!email || !password) {
-      setError('Por favor, preencha todos os campos')
-      return
-    }
-
-    setLoading(true)
-    setError(null)
-
-    try {
-      console.log('Tentando criar conta para:', email)
-      
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: `${location.origin}/auth/callback`,
-        },
-      })
-
-      console.log('Resposta do signup:', { data, error })
-
-      if (error) {
-        console.error('Erro ao criar conta:', error)
-        setError(error.message)
-        setLoading(false)
-        return
-      }
-
-      if (data?.user) {
-        setError('Conta criada! Verifique seu e-mail para confirmar o cadastro.')
-      }
-    } catch (err) {
-      console.error('Erro inesperado:', err)
-      setError('Erro ao criar conta. Tente novamente.')
-    } finally {
-      setLoading(false)
-    }
   }
 
   return (
@@ -157,5 +117,21 @@ export default function LoginPage() {
         </form>
       </Card>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Card className="w-full max-w-md">
+          <CardContent className="p-6">
+            <div className="text-center">Carregando...</div>
+          </CardContent>
+        </Card>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   )
 }
