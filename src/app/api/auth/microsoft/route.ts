@@ -27,8 +27,9 @@ export async function POST(request: NextRequest) {
 
     const clientId = process.env.NEXT_PUBLIC_MICROSOFT_CLIENT_ID!
     const clientSecret = process.env.MICROSOFT_CLIENT_SECRET!
-    // Use the exact same redirect URI as configured in Azure
-    const redirectUri = `http://localhost:3001/auth/callback/microsoft`
+    // Use the app URL from environment or current origin
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    const redirectUri = `${baseUrl}/auth/callback/microsoft`
     
 
     // Exchange code for tokens
