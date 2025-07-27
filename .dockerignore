@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.gitignore
+README.md
+.env.local
+.env.local.example
+.DS_Store
+*.log
+.claude-project
+CLAUDE.md
+claude_code_prompt.md
+Dockerfile
+docker-compose.yml
+.dockerignore

@@ -39,3 +39,27 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor
+.vscode/
+.idea/
+
+# temporary files
+*.log
+*.tmp
+*.temp
+.next.old*
+*.sh
+
+# docker
+docker-compose.override.yml
+
+# claude project testing
+.claude-project/testing/
+.claude-project/config/test-*
+
+# documentation drafts
+*_DRAFT.md
+*_TEMP.md
+STATUS.md
+ACESSO_*.md
