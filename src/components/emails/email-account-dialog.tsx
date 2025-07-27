@@ -156,9 +156,17 @@ export function EmailAccountDialog({
         }))
 
         // Microsoft OAuth flow - Direct URL
-        const clientId = process.env.NEXT_PUBLIC_MICROSOFT_CLIENT_ID || ''
-        // Use exact redirect URI without encoding here
-        const redirectUri = `http://localhost:3001/auth/callback/microsoft`
+        const clientId = process.env.NEXT_PUBLIC_MICROSOFT_CLIENT_ID || '7cf3681f-8f25-4099-8f42-51c2b7cb1b90'
+        
+        if (!clientId) {
+          throw new Error('Microsoft Client ID não configurado')
+        }
+        
+        console.log('Using Microsoft Client ID:', clientId)
+        
+        // Use the app URL from environment or current origin
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
+        const redirectUri = `${baseUrl}/auth/callback/microsoft`
         const scope = 'offline_access Mail.Read Mail.ReadWrite Mail.Send User.Read'
         const state = crypto.randomUUID()
         
@@ -177,6 +185,8 @@ export function EmailAccountDialog({
         })
         
         const authUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?${params.toString()}`
+        
+        console.log('Redirecting to:', authUrl)
 
         // Redirect to Microsoft login
         window.location.href = authUrl
