@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { AuthenticatedLayout } from '@/components/layout/authenticated-layout'
 import { TicketList } from '@/components/tickets/ticket-list'
@@ -53,7 +53,7 @@ interface Ticket {
   }
 }
 
-export default function TicketsPage() {
+function TicketsPageContent() {
   const [tickets, setTickets] = useState<Ticket[]>([])
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
@@ -430,5 +430,19 @@ export default function TicketsPage() {
         </Tabs>
       </div>
     </AuthenticatedLayout>
+  )
+}
+
+export default function TicketsPage() {
+  return (
+    <Suspense fallback={
+      <AuthenticatedLayout>
+        <div className="p-6">
+          <div className="text-center">Carregando tickets...</div>
+        </div>
+      </AuthenticatedLayout>
+    }>
+      <TicketsPageContent />
+    </Suspense>
   )
 }
