@@ -156,10 +156,10 @@ export function EmailAccountDialog({
         }))
 
         // Microsoft OAuth flow - Direct URL
-        const clientId = process.env.NEXT_PUBLIC_MICROSOFT_CLIENT_ID || '7cf3681f-8f25-4099-8f42-51c2b7cb1b90'
+        const clientId = process.env.NEXT_PUBLIC_MICROSOFT_CLIENT_ID
         
         if (!clientId) {
-          throw new Error('Microsoft Client ID não configurado')
+          throw new Error('Microsoft Client ID não configurado. Configure NEXT_PUBLIC_MICROSOFT_CLIENT_ID nas variáveis de ambiente.')
         }
         
         console.log('Using Microsoft Client ID:', clientId)
